@@ -32,21 +32,21 @@ app.use('/api/auth', userRoutes);
 //=====[]==============================================================================
 
 
-// app.post('/api/auth/signup', (req, res, next) => {
-//     console.log(req.body);
-//     res.status(201).json({
-//         message: 'signup'
-//     });
-// });
+app.post('/api/auth/signup', (req, res, next) => {
+    console.log(req.body);
+    res.status(201).json({
+        message: 'signup'
+    });
+});
 
-// app.post('/api/auth/login', (req, res, next) => {
-//     delete req.body._id;
-//     const thing = new Sauces({
-//         ...req.body
-//     });
-//     sauces.save()
-//     .then(() => res.status(201).json({message: ''}))
-//     .catch(() => rest.status(400).json({ error}));
-// });
+app.post('/api/auth/login', (req, res, next) => {
+    // delete req.body._id;
+    const thing = new Sauces({
+        ...req.body
+    });
+    sauces.save()
+    .then(() => res.status(201).json({message: ''}))
+    .catch(() => rest.status(400).json({ error}));
+});
 
 module.exports = app;
