@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require ('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -15,6 +16,7 @@ mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/SoPekoc
 const app = express();
 
 
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -23,6 +25,7 @@ app.use((req, res, next) => {
   });
 
 app.use(bodyParser.json());
+app.use(helmet());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -32,21 +35,21 @@ app.use('/api/auth', userRoutes);
 //=====[]==============================================================================
 
 
-app.post('/api/auth/signup', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json({
-        message: 'signup'
-    });
-});
+// app.post('/api/auth/signup', (req, res, next) => {
+//     console.log(req.body);
+//     res.status(201).json({
+//         message: 'signup'
+//     });
+// });
 
-app.post('/api/auth/login', (req, res, next) => {
-    // delete req.body._id;
-    const thing = new Sauces({
-        ...req.body
-    });
-    sauces.save()
-    .then(() => res.status(201).json({message: ''}))
-    .catch(() => rest.status(400).json({ error}));
-});
+// app.post('/api/auth/login', (req, res, next) => {
+//     delete req.body._id;
+//     const thing = new Sauces({
+//         ...req.body
+//     });
+//     sauces.save()
+//     .then(() => res.status(201).json({message: ''}))
+//     .catch(() => rest.status(400).json({ error}));
+// });
 
 module.exports = app;
