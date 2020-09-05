@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 
 const saucesShema = mongoose.Shema({
+    title: {type: String, required: true},
     name: {type: String, required: true},
     description: {type: String, required: true},
     imageUrl: {type: String, required: true},
@@ -10,4 +11,4 @@ const saucesShema = mongoose.Shema({
     mainPapper: {type: String, required: true},
 });
 
-// module.exports = mongoose.model('sauces, saucesShema');
+module.exports = mongoose.model('sauces, saucesShema');
