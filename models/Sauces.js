@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// const uniqueValidator = require('mongoose-unique-validator');
 
 
 const saucesSchema = mongoose.Schema({
@@ -13,6 +12,5 @@ const saucesSchema = mongoose.Schema({
     mainPapper: {type: String, required: true},
 });
 
-// saucesShema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('sauces', saucesSchema);

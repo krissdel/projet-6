@@ -18,8 +18,8 @@ exports.createSauces = (req, res, next) => {
 };
 
 exports.findSauces = (req, res, next) => {
-    Sauces.find()
-      .then(things => res.status(200).json(things))
+    Sauces.find({ _id: req.params.id })
+      .then(sauces => res.status(200).json(sauces))
       .catch(error => res.status(404).json({ error }));
       next();
 };
