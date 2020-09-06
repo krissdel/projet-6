@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
+// const uniqueValidator = require('mongoose-unique-validator');
 
-const saucesShema = mongoose.Shema({
+
+const saucesSchema = mongoose.Schema({
     title: {type: String, required: true},
     name: {type: String, required: true},
     description: {type: String, required: true},
@@ -11,4 +13,6 @@ const saucesShema = mongoose.Shema({
     mainPapper: {type: String, required: true},
 });
 
-module.exports = mongoose.model('sauces, saucesShema');
+// saucesShema.plugin(uniqueValidator);
+
+module.exports = mongoose.model('sauces', saucesSchema);
