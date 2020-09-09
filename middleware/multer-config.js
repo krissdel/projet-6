@@ -1,5 +1,5 @@
-const multer = require('multer');
-
+const multer = require('multer'); // [gére les fichiers entrants dans les requêtes HTTP]
+                                  //[téléchargement de photos]
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',

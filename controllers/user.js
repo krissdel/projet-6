@@ -18,15 +18,19 @@ exports.signup = async (req, res, next) => {
 
     // })
     // .catch(error => rest.status(500).json({ error }));
+
     try {
-        const hash = await bcrypt.hash(req.body.password, 10); //[10 est le salt (10 tours)]
+        const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
+        console.log('hash');
         const user = new userModel({
             email: req.body.email,
             password: hash
+        
         });
+        console.log('user');
         await user.save();
         res.status(201).json({ message: 'Utilisateur créé !' });
-        //next();
+        next();
     }
     catch (error) {
         res.status(500).json({ error });
@@ -47,8 +51,11 @@ exports.login = async (req, res, next) => {
                 'RANDOM_SECRET_KEY',
                 { expiresIn: '24h' }
             )
+            
         });
-        //next();
+        console.log('user');
+        console.Log('valid');
+        next();
     }
     catch (error) {
         res.status(500).json({ error });
