@@ -1,14 +1,15 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const userModel = require('../models/user');
+const userModel = require('../models/User');
+// const User = require('../models/User');
 
 
 
 exports.signup = async (req, res, next) => {
     // bcrypt.hash(req.body.password, 10)
     // .then(hash => {
-    //     const user = new user({
+    //     const user = new User({
     //         email: req.body.email,
     //         password: hash
     //     });
@@ -48,14 +49,14 @@ exports.login = async (req, res, next) => {
             userId: user._id,
             token: jwt.sign(
                 { userId: user._id },
-                'RANDOM_SECRET_KEY',
+                'RANDOM_TOKEN_DECRET',
                 { expiresIn: '24h' }
             )
             
         });
         console.log('user');
         console.Log('valid');
-        next();
+        // next();
     }
     catch (error) {
         res.status(500).json({ error });
