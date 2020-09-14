@@ -1,22 +1,27 @@
+// require("dotenv").config();
+
 const express = require('express');
 const helmet = require ('helmet');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
 
 
 const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
-mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/SoPekocko?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/Piquante?retryWrites=true&w=majority',
   { useNewUrlParser: true,
-    useUnifiedTopology: true })
+    useUnifiedTopology: true, useCreateIndex: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 // app.use(cors());
+
+app.use(helmet());
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,8 +32,8 @@ app.use((req, res, next) => {
 
 
 
-app.use(helmet());
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // Transforme le corps de la requête en un objet JSON
+
 
 
 // ----- [indique à Express qu'il faut gérer les images de manière statique]
