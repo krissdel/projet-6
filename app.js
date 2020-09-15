@@ -7,13 +7,12 @@ const mongoose = require('mongoose');
 const path = require('path');
 // const cors = require('cors');
 
-
-const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces');
 
-mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/Piquante?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/So_Pekocko?retryWrites=true&w=majority',
   { useNewUrlParser: true,
-    useUnifiedTopology: true, useCreateIndex: true })
+    useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
@@ -38,6 +37,9 @@ app.use(bodyParser.json()); // Transforme le corps de la requête en un objet JS
 
 // ----- [indique à Express qu'il faut gérer les images de manière statique]
 app.use('/images', express.static(path.join(__dirname, 'images'))); 
+
+
+//-----[route]---------------------------------------------------------------------
 
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);
