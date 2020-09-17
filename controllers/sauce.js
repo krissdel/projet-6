@@ -1,5 +1,5 @@
 const fs = require('fs');  //(file system) donne accès aux fonctions qui nous permettent de modifier le système de fichiers
-const SaucesModel = ('../models/Sauce');
+const SaucesModel = require('../models/Sauce');
 
 
 exports.createSauce = (req, res) => {
