@@ -16,4 +16,4 @@ const sauceSchema = new Schema({
     usersDisliked: { type: [String], default: [] },
 });
 
-module.exports = mongoose.model('SaucesModel', sauceSchema);  //'Sauce' => nom du models
+module.exports = mongoose.model('SaucesModel', sauceSchema);  //'SauceModel' => nom du models

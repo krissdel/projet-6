@@ -40,7 +40,7 @@ exports.login = async(req, res) => {
             if (!valid) {
               return res.status(401).json({ message: "Mot de passe incorrect !" });
              }
-                        return res.status(200).json({
+                        res.status(200).json({
                           userId: user._id,
                           token: jwt.sign(
                             { userId: user._id },
@@ -50,15 +50,15 @@ exports.login = async(req, res) => {
                         });
                       })
         .catch(error => {
-          console.error(error);
+          // console.error(error);
           res.status(500).json({ error })
         });
                   }
     
     
     catch (error) {
-      console.error(error);
-      res.status(500).json({ error });
+      // console.error(error);
+      return res.status(500).json({ error });
   };
 
 };
