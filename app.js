@@ -1,16 +1,16 @@
-// require("dotenv").config();
-const express = require('express');
-const helmet = require ('helmet');
+require("dotenv").config();
+const express    = require('express');
+const helmet     = require ('helmet');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
-const cors = require('cors');
+const mongoose   = require('mongoose');
+const path       = require('path');
+const cors       = require('cors');
 
-const userRoutes = require('./routes/user');
+const userRoutes  = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 
 
-mongoose.connect('mongodb+srv://kriss:Moon_74@cluster0.zsyla.mongodb.net/Piquante?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_CLUSTER}?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
