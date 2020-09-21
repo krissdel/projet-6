@@ -5,14 +5,26 @@ const SaucesModel = require('../models/Sauce');
 exports.createSauce = (req, res) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;       // Supprime l'id généré automatiquement
-    const sauce = new SaucesModel({
+    try{
+      const sauce = new SaucesModel({
         ...sauceObject,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    });
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      });
+      console.log(sauceObject)
+      sauce.save()   // Enregistre la sauce dans la base de données
+      .then(() => res.status(201).json({message: 'Sauce enregistrées !'}))
+      .catch(error => {
+        console.log("\n\n\ncreateSauce : sauce.save Failed", error);
+        res.status(400).json({ error })
+      });
+
+    }
+    catch(error){
+      console.log("\n\n\ncreateSauce : new SauceModel Failed", error);
+    }
+ 
     
-    sauce.save()   // Enregistre la sauce dans la base de données
-    .then(() => res.status(201).json({message: 'Sauce enregistrées !'}))
-    .catch(error => res.status(400).json({ error }));
+    
 
 
 };
