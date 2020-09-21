@@ -14,13 +14,12 @@ exports.createSauce = (req, res) => {
       sauce.save()   // Enregistre la sauce dans la base de données
       .then(() => res.status(201).json({message: 'Sauce enregistrées !'}))
       .catch(error => {
-        // console.log("\n\n\ncreateSauce : sauce.save Failed", error);
         res.status(400).json({ error })
       });
 
     }
     catch(error){
-      console.log("\n\n\ncreateSauce : new SauceModel Failed", error);
+      console.log("createSauce : new SauceModel Failed", error);
     }
 };
 
