@@ -1,7 +1,7 @@
 const fs = require('fs'); //(file system) donne accès aux fonctions qui nous permettent de modifier le système de fichiers
 const SaucesModel = require('../models/Sauce');
 
-
+// -----[ création de sauce]-----------------------------------------------------------
 exports.createSauce = (req, res) => {
     const sauceObject = JSON.parse(req.body.sauce);
     delete sauceObject._id;       // Supprime l'id généré automatiquement
@@ -14,7 +14,7 @@ exports.createSauce = (req, res) => {
       sauce.save()   // Enregistre la sauce dans la base de données
       .then(() => res.status(201).json({message: 'Sauce enregistrées !'}))
       .catch(error => {
-        console.log("\n\n\ncreateSauce : sauce.save Failed", error);
+        // console.log("\n\n\ncreateSauce : sauce.save Failed", error);
         res.status(400).json({ error })
       });
 
@@ -22,19 +22,9 @@ exports.createSauce = (req, res) => {
     catch(error){
       console.log("\n\n\ncreateSauce : new SauceModel Failed", error);
     }
- 
-    
-    
-
-
 };
 
-
-
-
-
-
-
+// -----[ trouver toutes les sauces  ]-------------------------------------------------------------
 exports.getAllSauces = (req, res) => {
   SaucesModel.find()
       .then(SaucesModel => res.status(200).json(SaucesModel))
@@ -45,6 +35,7 @@ exports.getAllSauces = (req, res) => {
      
 };
 
+// -----[ trouver une sauce ]------------------------------------------------------------------------
 exports.getOneSauce = (req, res) => {
   SaucesModel.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
@@ -54,8 +45,7 @@ exports.getOneSauce = (req, res) => {
 
 };
 
-
-
+// -----[modifier une sauce]----------------------------------------------------------------------------
 exports.modifySauce = (req, res) => {
   const sauceObject = req.file ? {
     ...JSON.parse(req.body.sauce),
@@ -80,17 +70,15 @@ exports.modifySauce = (req, res) => {
 .catch(error => res.status(500).json({ error }));
 };
 
-
-
-
+// -----[effacer une sauce]------------------------------------------------------------------------------
 exports.deleteSauce = (req, res) => {
     SaucesModel.findOne({ _id: req.params.id})
     .then(sauce => {
       const filename = sauce.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () =>{            //assure que le fichier image correspondant est également supprimé.
-        SaucesModel.deleteOne({_id: req.params.id }
+        SaucesModel.deleteOne({_id: req.params.id })
         .then(() => res.status(200).json({ message: 'Sauce supprimée !'}))
-        .catch(error => res.status(400).json({ error })));
+        .catch(error => res.status(400).json({ error }));
       });
     })
     .catch(error => error.status(500).json({
@@ -102,15 +90,13 @@ exports.deleteSauce = (req, res) => {
 
 
 
-// =====[Like / dislike]=================
-
-
+// =====[Like / dislike une sauce]======================================================================================
 
 exports.likeSauces = (req, res) => {
   
   if (req.body.like === 1) {    //utilisateur like une sauce
     SaucesModel.updateOne({ _id: req.params.id }, {
-      $set: { usersLiked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs aimant la sauce
+      $push: { usersLiked: req.body.userId }, // Ajoute l'id de l'utilisateur à la liste des utilisateurs aimant la sauce
       $inc: { likes: 1 }, // Incrémente de 1 le nombre d'utilisateurs aimant la sauce
     })
       .then(() => res.status(200).json({ message: "like sauce !" }))

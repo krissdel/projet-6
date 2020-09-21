@@ -11,7 +11,7 @@ router.get('/', auth, sauceCtrl.getAllSauces);   //[renvoie le tableau de toutes
 router.get('/:id', auth, sauceCtrl.getOneSauce);  //[Renvoie la sauce avec l'ID fourni]
 router.put('/:id', auth, multer, sauceCtrl.modifySauce);   //[Met a jour les sauces ]
 router.delete('/:id', auth, sauceCtrl.deleteSauce);   //[Supprime la sauce]
-router.post("/:id/like", auth, sauceCtrl.likeSauces); // [like ou dislike lles sauces] 
+router.post("/:id/like", auth, sauceCtrl.likeSauces); // [like ou dislike les sauces] 
 
 
 

@@ -1,9 +1,9 @@
-// require("dotenv").config();
-const bcrypt = require('bcrypt');
+require("dotenv").config(); //charge les variables d'environnement à partir d'un .env fichier dans process.env
+const bcrypt = require('bcrypt');  //stock le mot de passe sécurisé sous forme de hash
 const jwt = require('jsonwebtoken');  //crée et vérifie les TOKEN
 const User = require('../models/User');
 
-
+// -----[enregistrement d'un utilisateur]-------------------------------------------------------------------
 exports.signup = async (req, res) => {
     try {
         const hash = await bcrypt.hash(req.body.password, 10); // [10 est le salt (10 tours)]
@@ -12,22 +12,16 @@ exports.signup = async (req, res) => {
             password: hash,
         });
         await user.save()
-        // res.status(201).json({ message: 'Utilisateur créé !' })
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch(() => res.status(500).json({ message: 'mot de passe incorrect !' }));
-    }
-    
-    // catch { res.status(501).json({ message: 'utilisateur déjas crée!' });
-      // }
+    }    
       catch (error) {res.status(500).json({ error: 'utilisateur non trouvé !' });
   }
 
 };
 
 
-
-
-
+// -----[connection d'un utilisateur ]-----------------------------------------------------------------------
 exports.login = async(req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email })
@@ -44,20 +38,18 @@ exports.login = async(req, res) => {
                           userId: user._id,
                           token: jwt.sign(
                             { userId: user._id },
-                            'TOKEN_SECRET_KEY',
+                            process.env.JWT_KEY,
                             { expiresIn: "24h" },
                           ),
                         });
                       })
         .catch(error => {
-          // console.error(error);
           res.status(500).json({ error })
         });
                   }
     
     
     catch (error) {
-      // console.error(error);
       return res.status(500).json({ error });
   };
 

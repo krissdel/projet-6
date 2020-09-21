@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');   //facilite les interactions avec la base de données MongoDB
 const Schema = mongoose.Schema;
 
+// -----[ indique le type et le caractère des champs souhaités]-----------------------------------------------
 const sauceSchema = new Schema({
     userId: {type: String, required: true},
     name: {type: String, required: true},
@@ -16,4 +17,4 @@ const sauceSchema = new Schema({
     usersDisliked: { type: [String], default: [] },
 });
 
-module.exports = mongoose.model('SaucesModel', sauceSchema);  //'SauceModel' => nom du models
+module.exports = mongoose.model('SaucesModel', sauceSchema);  //'SaucesModel' => nom du models
