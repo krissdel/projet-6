@@ -1,4 +1,4 @@
-const fs = require('fs');  //(file system) donne accès aux fonctions qui nous permettent de modifier le système de fichiers
+const fs = require('fs'); //(file system) donne accès aux fonctions qui nous permettent de modifier le système de fichiers
 const SaucesModel = require('../models/Sauce');
 
 
@@ -36,17 +36,18 @@ exports.getAllSauces = (req, res) => {
 exports.getOneSauce = (req, res) => {
   SaucesModel.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(404).json({ error }));
-   
+    .catch(error => res.status(404).json({
+      error
+    }));
+
 };
 
 
 
 exports.modifySauce = (req, res) => {
-   const sauceObject = req.file ?
-   {
-     ...JSON.parse(req.body.sauce),
-     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  const sauceObject = req.file ? {
+    ...JSON.parse(req.body.sauce),
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
    } : { ...req.body };
    SaucesModel.findOne({ _id: req.params.id })
@@ -80,8 +81,10 @@ exports.deleteSauce = (req, res) => {
         .catch(error => res.status(400).json({ error })));
       });
     })
-    .catch( error => error.status(500).json({ error}));
-    
+    .catch(error => error.status(500).json({
+      error
+    }));
+
 };
 
 
@@ -133,7 +136,8 @@ exports.likeSauces = (req, res) => {
             .catch(error => res.status(400).json({ error }));
         }
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch(error => res.status(500).json({
+        error
+      }));
   }
 };
-
